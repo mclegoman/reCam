@@ -3,6 +3,19 @@
 # GitHub: https://github.com/MCLegoMan/reCam
 # License: CC0-1.0
 
+import pkg_resources, subprocess, sys
+
+required  = {'opencv-python'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing   = required - installed
+
+if missing:
+    print("Installing OpenCV")
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--upgrade', 'pip'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', *missing])
+else:
+    print("OpenCV is already installed!")
+
 import cv2
 import numpy as np
 import pyaudio
